@@ -10,3 +10,13 @@ body, #root {
 body{
   font-family: "Plus Jakarta Sans";
 }
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../public/fonts/PlusJakartaSans-Regular.woff");
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../public/fonts/PlusJakartaSans-Regular.woff2");
+}

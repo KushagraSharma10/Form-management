@@ -1,28 +1,25 @@
 import React from 'react'
 
 const Details = (props) => {
-    const {name, age, dob,mobile} = props;
+    const {name, age, dob,mobile, submitted} = props;
+
+    const fields = [
+        { label: "Name", value: name },
+        { label: "Age", value: age },
+        { label: "DOB", value: dob },
+        { label: "Mobile", value: mobile },
+      ];
 
   return (
     <div className='w-[30vw]  px-10 py-5 rounded-md bg-white flex flex-col gap-5'>
         <h1  className=" text-[1.4em] font-semibold">User Details</h1>
         <div className='user-detail text-start flex flex-col  gap-[2vw]'>
-            <div className='flex items-center gap-3'>
-                <h1>Name: </h1>
-                <h1>{name}</h1>
-            </div>
-            <div>
-                <h1>Age: </h1>
-                <h1>{age}</h1>
-            </div>
-            <div>
-                <h1>DOB: </h1>
-                <h1>{dob}</h1>
-            </div>
-            <div>
-                <h1>Mobile: </h1>
-                <h1>{mobile}</h1>
-            </div>
+        {fields.map((field, index) => (
+          <div key={index} className="flex items-center gap-3">
+            <h1>{field.label}:</h1>
+            <h1>{submitted ? field.value : ""}</h1>
+          </div>
+        ))}
         </div>
     </div>
   )

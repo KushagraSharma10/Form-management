@@ -6,9 +6,10 @@ const Register = () => {
     const [age, setAge] = useState();
     const [Dob, setDob] = useState();
     const [mobile, setMobile] = useState();
+    const [submitted, setSubmitted] = useState(false);
 
     const handleClick = () => {
-        console.log("first")
+        setSubmitted(true)
     };
 
     return (
@@ -53,8 +54,8 @@ const Register = () => {
                     />
                 </div>
             </div>
-            <Details name = {name} age ={age} mobile={mobile} dob={Dob} />
-        </div>
+            <Details name = {name} age ={age} mobile={mobile} dob={Dob} submitted={submitted} />
+        </div> 
     );
 };
 

@@ -9,7 +9,12 @@ const Register = () => {
     const [submitted, setSubmitted] = useState(false);
 
     const handleClick = () => {
-        setSubmitted(true)
+        const DobYear = new Date(Dob).getFullYear();
+        const currentYear = new Date().getFullYear();
+        const calculatedAge = currentYear - DobYear;
+    
+        setAge(calculatedAge);
+        setSubmitted(true);
     };
 
     return (
@@ -26,13 +31,13 @@ const Register = () => {
                         onChange={(e) => setName(e.target.value)}
                         value={name}
                     />
-                    <input
+                    {/* <input
                         className="border-1 w-full rounded-md p-2 outline-none border-blue-300 text-[1vw]"
                         type="number"
                         placeholder="Age"
                         value={age}
                         onChange={(e) => setAge(e.target.value)}
-                    />
+                    /> */}
                     <input
                         className="border-1 w-full rounded-md p-2 outline-none border-blue-300 text-[1vw]"
                         type="date"

@@ -1,21 +1,11 @@
 import React, { useState } from "react";
 import Details from "./Details";
 
-const Register = () => {
-    const [name, setName] = useState("");
-    const [age, setAge] = useState();
-    const [Dob, setDob] = useState();
-    const [mobile, setMobile] = useState();
-    const [submitted, setSubmitted] = useState(false);
+const Register = ({handleInput}) => {
+   
+  
 
-    const handleClick = () => {
-        const DobYear = new Date(Dob).getFullYear();
-        const currentYear = new Date().getFullYear();
-        const calculatedAge = currentYear - DobYear;
     
-        setAge(calculatedAge);
-        setSubmitted(true);
-    };
 
     return (
         <div className="flex items-center gap-10">
@@ -28,8 +18,9 @@ const Register = () => {
                         className="border-1 w-full rounded-md p-2 outline-none border-blue-300 text-[1vw]"
                         type="text"
                         placeholder="Full Name"
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
+                        name="name"
+                        onChange ={handleInput}
+                        // value={name}
                     />
                     {/* <input
                         className="border-1 w-full rounded-md p-2 outline-none border-blue-300 text-[1vw]"
@@ -42,24 +33,27 @@ const Register = () => {
                         className="border-1 w-full rounded-md p-2 outline-none border-blue-300 text-[1vw]"
                         type="date"
                         placeholder="DOB"
-                        value={Dob}
-                        onChange={(e) => setDob(e.target.value)}
+                        name="Dob"
+                        // value={Dob}
+                        onChange={handleInput}
                     />
                     <input
                         className="border-1 w-full rounded-md p-2 outline-none border-blue-300 text-[1vw] "
-                        type="text"
+                        type="number"
                         placeholder="Mobile No."
-                        onChange={(e) => setMobile(e.target.value)}
-                        value={mobile}
+                        onChange={handleInput}
+                        name="mobile"
+                        // value={mobile}
+                        maxLength={10}
                     />
                     <input
                         className="w-full bg-blue-500 text-center px-2 py-3 rounded-md cursor-pointer text-white font-semibold"
                         type="submit"
-                        onClick={handleClick}
+                        // onClick={handleClick}
                     />
                 </div>
             </div>
-            <Details name = {name} age ={age} mobile={mobile} dob={Dob} submitted={submitted} />
+            {/* <Details name = {name} age ={age} mobile={mobile} dob={Dob} submitted={submitted} /> */}
         </div> 
     );
 };

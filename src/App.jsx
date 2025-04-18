@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Register from './components/Register'
 import Details from './components/Details';
+import UserTable from './components/UserTable';
 
 
 const App = () => {
@@ -13,19 +14,8 @@ const App = () => {
   
 
   const [data, setData] = useState({});
+  const [userList, setUserList] = useState([]);
 
-//   const handleClick = () => {
-//     // const DobYear = new Date(Dob).getFullYear();
-//     // const currentYear = new Date().getFullYear();
-//     // const calculatedAge = currentYear - DobYear;
-
-//     // setAge(calculatedAge);
-//     setData(data)
-//     console.log(data)
-//     setSubmitted(true);
-// };
-
-  // const event = {setName, setDob, setMobile}
 
   const handleInput = (e) =>{
     setData({
@@ -35,12 +25,30 @@ const App = () => {
    
   }
 
-  console.log(data)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (data.name && data.dob && data.mobile) {
+      setUserList([...userList, data]); // existing + new user
+      setData({}); // reset karne ke liye form data
+    }
+  };
+
+  const handleDateChange = (date) => {
+    const formattedDate = date?.toLocaleDateString("en-US");
+    setData(prev => ({
+      ...prev,
+      dob: formattedDate
+    }));
+  };
+
+  console.log(userList)
+  // console.log(data)
 
   return (
-    <div className='w-full flex items-center justify-center gap-10 h-screen rounded-md bg-zinc-900'>
-        <Register handleInput = {handleInput}  />
-        <Details {...data}/>
+    <div className='w-full flex items-center px-10 gap-10 h-screen rounded-md bg-zinc-300'>
+        <Register data = {data} handleInput = {handleInput} handleDateChange = {handleDateChange} handleSubmit={handleSubmit}  />
+
+        <UserTable  users={userList} />
     </div>
   )
 }

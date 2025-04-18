@@ -167,7 +167,7 @@ UserTableToolbar.propTypes = {
 
 export default function UserTable({ users }) {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("name");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -179,22 +179,33 @@ export default function UserTable({ users }) {
     setOrderBy(property);
   };
 
-  const createData = (id, name, age, mobile, dob) => {
-    return {
-      id,
-      name,
-      age: dobToAge(dob)?.count,
-      mobile,
-      dob,
-    };
+  const createData = (id, name, mobile, dob) => {
+    try {
+      const age = dobToAge(dob)?.count || "N/A";
+      return {
+        id,
+        name,
+        age,
+        mobile,
+        dob,
+      };
+    } catch (error) {
+      console.error("Error calculating age:", error);
+      return {
+        id,
+        name,
+        age: "N/A",
+        mobile,
+        dob,
+      };
+    }
   };
 
-  const rows = users.map((user, index) => {
-    return createData(index + 1, user.name, "", user.mobile, user.dob);
-  });
+  const rows = users.map((user, index) => 
+    createData(index + 1, user.name, user.mobile, user.dob)
+  );
 
-  console.log(rows)
-
+  console.log("Final rows data:", rows); // data check karo
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelected = rows.map((n) => n.id);

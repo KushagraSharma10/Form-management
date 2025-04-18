@@ -28,16 +28,24 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (data.name && data.dob && data.mobile) {
-      setUserList([...userList, data]); // existing + new user
-      setData({}); // reset karne ke liye form data
+      setUserList(prev => [...prev, {...data}]);
+      // Properly reset form fields
+      setData({
+        name: '',
+        dob: '',
+        mobile: ''
+      });
     }
   };
 
+
   const handleDateChange = (date) => {
-    const formattedDate = date?.toLocaleDateString("en-US");
+    if (!date) return;
+
+    const isoDate = date.toISOString().split('T')[0];
     setData(prev => ({
       ...prev,
-      dob: formattedDate
+      dob: isoDate
     }));
   };
 
@@ -48,7 +56,7 @@ const App = () => {
     <div className='w-full flex items-center px-10 gap-10 h-screen rounded-md bg-zinc-300'>
         <Register data = {data} handleInput = {handleInput} handleDateChange = {handleDateChange} handleSubmit={handleSubmit}  />
 
-        <UserTable  users={userList} />
+        <UserTable   key={userList.length} users={userList} />
     </div>
   )
 }

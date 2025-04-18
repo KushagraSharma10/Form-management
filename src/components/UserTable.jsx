@@ -167,7 +167,7 @@ UserTableToolbar.propTypes = {
 
 export default function UserTable({ users }) {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("name");
+  const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -178,34 +178,23 @@ export default function UserTable({ users }) {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-
   const createData = (id, name, mobile, dob) => {
+    let age = "N/A";
     try {
-      const age = dobToAge(dob)?.count || "N/A";
-      return {
-        id,
-        name,
-        age,
-        mobile,
-        dob,
-      };
-    } catch (error) {
-      console.error("Error calculating age:", error);
-      return {
-        id,
-        name,
-        age: "N/A",
-        mobile,
-        dob,
-      };
+      if (dob) age = dobToAge(dob)?.count || "Invalid DOB";
+    } catch (e) {
+      console.error("Age calc error:", e);
     }
+    
+    return { id, name, age, mobile, dob };
   };
+
 
   const rows = users.map((user, index) => 
     createData(index + 1, user.name, user.mobile, user.dob)
   );
 
-  console.log("Final rows data:", rows); // data check karo
+
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelected = rows.map((n) => n.id);
@@ -257,6 +246,10 @@ export default function UserTable({ users }) {
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [order, orderBy, page, rowsPerPage]
   );
+  
+  console.log("Processed Rows:", rows);
+console.log("Visible Rows:", visibleRows);
+
 
   return (
     <Box sx={{ width: "100%" }}>

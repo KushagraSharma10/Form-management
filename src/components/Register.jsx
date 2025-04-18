@@ -21,8 +21,7 @@ const Register = ({ handleInput,handleDateChange,handleSubmit,data }) => {
 
           />
           <DatePicker
-
-            name="Date Of wor"
+            name="Date Of Birth"
             // value={Dob}
             onChange={handleDateChange }
              label = "Date of Birth"

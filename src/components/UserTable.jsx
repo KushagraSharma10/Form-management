@@ -167,7 +167,7 @@ UserTableToolbar.propTypes = {
 
 export default function UserTable({ users }) {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("id");
+  const [orderBy, setOrderBy] = React.useState("name");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -193,6 +193,7 @@ export default function UserTable({ users }) {
   const rows = users.map((user, index) => 
     createData(index + 1, user.name, user.mobile, user.dob)
   );
+
 
 
   const handleSelectAllClick = (event) => {
@@ -246,10 +247,10 @@ export default function UserTable({ users }) {
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [order, orderBy, page, rowsPerPage]
   );
-  
-  console.log("Processed Rows:", rows);
-console.log("Visible Rows:", visibleRows);
 
+   console.log("Processed Rows:", rows);
+console.log("Visible Rows:", visibleRows);
+  
 
   return (
     <Box sx={{ width: "100%" }}>

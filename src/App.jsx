@@ -48,6 +48,7 @@ const App = () => {
       dob: isoDate
     }));
   };
+  
 
   console.log(userList)
   // console.log(data)
